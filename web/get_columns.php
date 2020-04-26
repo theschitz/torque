@@ -2,13 +2,13 @@
 require_once("./creds.php");
 
 // Connect to Database
-$con = mysqli_connect($db_host, $db_user, $db_pass) or die(mysqli_error());
-mysqli_select_db($con, "INFORMATION_SCHEMA") or die(mysqli_error());
+$con = mysqli_connect($db_host, $db_user, $db_pass) or die(mysqli_error($con));
+mysqli_select_db($con, "INFORMATION_SCHEMA") or die(mysqli_error($con));
 
 // Create array of column name/comments for chart data selector form
 $colqry = mysqli_query($con, "SELECT COLUMN_NAME,COLUMN_COMMENT,DATA_TYPE
                            FROM COLUMNS WHERE TABLE_SCHEMA='".$db_name."'
-                           AND TABLE_NAME='".$db_table."'") or die(mysqli_error());
+                           AND TABLE_NAME='".$db_table."'") or die(mysqli_error($con));
 
 // Select the column name and comment for data that can be plotted.
 while ($x = mysqli_fetch_array($colqry)) {
@@ -34,7 +34,7 @@ elseif (isset($_GET["id"])) {
 // If we have a certain session, check which colums contain no information at all
 $coldataempty = array();
 if (isset($session_id)) {
-    mysqli_select_db($db_name) or die(mysqli_error());
+    mysqli_select_db($con, $db_name) or die(mysqli_error($con));
 
     //Count distinct values for each known column
     //TODO: Unroll loop into single query
@@ -45,7 +45,7 @@ if (isset($session_id)) {
         // Count number of different values for this specific field
         $colqry = mysqli_query($con, "SELECT count(DISTINCT $colname)<2 as $colname
                                FROM $db_table
-                               WHERE session=$session_id") or die(mysqli_error());
+                               WHERE session=$session_id") or die(mysqli_error($con));
         $colresult = mysqli_fetch_assoc($colqry);
         $coldataempty[$colname] = $colresult[$colname];
     }
@@ -53,6 +53,6 @@ if (isset($session_id)) {
     //print_r($coldataempty);
 }
 
-mysqli_close();
+mysqli_close($con);
 
 ?>

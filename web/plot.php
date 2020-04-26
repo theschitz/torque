@@ -3,8 +3,8 @@ require_once("./creds.php");
 require_once("./parse_functions.php");
 
 // Connect to Database
-mysqli_connect($db_host, $db_user, $db_pass) or die(mysqli_error());
-mysqli_select_db($db_name) or die(mysqli_error());
+$con = mysqli_connect($db_host, $db_user, $db_pass) or die(mysqli_error($con));
+mysqli_select_db($con, $db_name) or die(mysqli_error($con));
 
 // Grab the session number
 if (isset($_GET["id"]) and in_array($_GET["id"], $sids)) {
@@ -36,7 +36,7 @@ if (isset($_GET["id"]) and in_array($_GET["id"], $sids)) {
     $sessionqry = mysqli_query($con, "SELECT time,$v1,$v2
                           FROM $db_table
                           WHERE session=$session_id
-                          ORDER BY time DESC;") or die(mysqli_error());
+                          ORDER BY time DESC;") or die(mysqli_error($con));
 
     //Speed conversion
     if (!$source_is_miles && $use_miles)

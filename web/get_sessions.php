@@ -6,14 +6,14 @@ session_start();
 $timezone = $_SESSION['time'];
 
 // Connect to Database
-$con = mysqli_connect($db_host, $db_user, $db_pass) or die(mysqli_error());
-mysqli_select_db($con, $db_name) or die(mysqli_error());
+$con = mysqli_connect($db_host, $db_user, $db_pass) or die(mysqli_error($con));
+mysqli_select_db($con, $db_name) or die(mysqli_error($con));
 
 // Get list of unique session IDs
 $sessionqry = mysqli_query($con, "SELECT COUNT(*) as `Session Size`, MIN(time) as `MinTime`, MAX(time) as `MaxTime`, session
                       FROM $db_table
                       GROUP BY session
-                      ORDER BY time DESC") or die(mysqli_error());
+                      ORDER BY time DESC") or die(mysqli_error($con));
 
 // Create an array mapping session IDs to date strings
 $seshdates = array();

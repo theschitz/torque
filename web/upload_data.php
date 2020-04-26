@@ -3,11 +3,11 @@ require_once ('creds.php');
 require_once ('auth_app.php');
 
 // Connect to Database
-$con = mysqli_connect($db_host, $db_user, $db_pass) or die(mysqli_error());
-mysqli_select_db($con, $db_name) or die(mysqli_error());
+$con = mysqli_connect($db_host, $db_user, $db_pass) or die(mysqli_error($con));
+mysqli_select_db($con, $db_name) or die(mysqli_error($con));
 
 // Create an array of all the existing fields in the database
-$result = mysqli_query($con, "SHOW COLUMNS FROM $db_table") or die(mysqli_error());
+$result = mysqli_query($con, "SHOW COLUMNS FROM $db_table") or die(mysqli_error($con));
 if (mysqli_num_rows($result) > 0) {
     while ($row = mysqli_fetch_assoc($result)) {
         $dbfields[]=($row['Field']);
@@ -47,13 +47,13 @@ if (sizeof($_GET) > 0) {
         // If the field doesn't already exist, add it to the database
         if (!in_array($key, $dbfields) and $submitval == 1) {
             $sqlalter = "ALTER TABLE $db_table ADD $key VARCHAR(255) NOT NULL default '0'";
-            mysqli_query($con, $sqlalter) or die(mysqli_error());
+            mysqli_query($con, $sqlalter) or die(mysqli_error($con));
         }
     }
     if ((sizeof($keys) === sizeof($values)) && sizeof($keys) > 0) {
         // Now insert the data for all the fields
         $sql = "INSERT INTO $db_table (".implode(",", $keys).") VALUES (".implode(",", $values).")";
-        mysqli_query($con, $sql) or die(mysqli_error());
+        mysqli_query($con, $sql) or die(mysqli_error($con));
     }
 }
 

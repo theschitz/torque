@@ -13,8 +13,8 @@ require_once ("./plot.php");
 $_SESSION['recent_session_id'] = strval(max($sids));
 
 // Connect to Database
-$con = mysqli_connect($db_host, $db_user, $db_pass) or die(mysqli_error());
-mysqli_select_db($con, $db_name) or die(mysqli_error());
+$con = mysqli_connect($db_host, $db_user, $db_pass) or die(mysqli_error($con));
+mysqli_select_db($con, $db_name) or die(mysqli_error($con));
 
 if (isset($_POST["id"])) {
     $session_id = preg_replace('/\D/', '', $_POST['id']);
@@ -37,7 +37,7 @@ if (isset($session_id)) {
     $sessionqry = mysqli_query($con, "SELECT kff1006, kff1005
                           FROM $db_table
                           WHERE session=$session_id
-                          ORDER BY time DESC") or die(mysqli_error());
+                          ORDER BY time DESC") or die(mysqli_error($con));
 
     $geolocs = array();
     while($geo = mysqli_fetch_array($sessionqry)) {

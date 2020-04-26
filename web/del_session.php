@@ -12,11 +12,11 @@ elseif (isset($_GET["deletesession"])) {
 
 if (isset($deletesession) && !empty($deletesession)) {
     // Connect to Database
-    $con = mysqli_connect($db_host, $db_user, $db_pass) or die(mysqli_error());
-    mysqli_select_db($con, $db_name) or die(mysqli_error());
+    $con = mysqli_connect($db_host, $db_user, $db_pass) or die(mysqli_error($con));
+    mysqli_select_db($con, $db_name) or die(mysqli_error($con));
 
     $delresult = mysqli_query($con,"DELETE FROM $db_table
-                          WHERE session=$deletesession;") or die(mysqli_error());
+                          WHERE session=$deletesession;") or die(mysqli_error($con));
 
     mysqli_free_result($delresult);
     mysqli_close($con);
