@@ -20,6 +20,7 @@ $sessionqry = mysqli_query($con, "SELECT COUNT(*) as `Session Size`, MIN(time) a
 // Create an array mapping session IDs to date strings
 $seshdates = array();
 $seshsizes = array();
+$sids = array();
 while($row = mysqli_fetch_assoc($sessionqry)) {
     $session_size = $row["Session Size"];
     $session_duration = $row["MaxTime"] - $row["MinTime"];
