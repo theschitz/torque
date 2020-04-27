@@ -19,6 +19,10 @@ if (isset($deletesession) && !empty($deletesession)) {
                           WHERE session=$deletesession;") or die(mysqli_error($con));
 
     mysqli_free_result($delresult);
+    
+    $delresult = mysqli_query($con, "DELETE FROM $db_sessions_table
+                          WHERE session=$deletesession;") or die(mysql_error());
+    mysqli_free_result($delresult);
     mysqli_close($con);
 }
 
