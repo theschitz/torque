@@ -11,6 +11,13 @@ require_once ("./get_columns.php");
 require_once ("./plot.php");
 
 $_SESSION['recent_session_id'] = strval(max($sids));
+// Check if there is time set in the session; if not, set it
+if (isset($_SESSION['time'])) {
+    $timezone = $_SESSION['time'];
+} else {
+    date_default_timezone_set(date_default_timezone_get());
+    $timezone = "GMT ".date('Z')/3600;
+}
 
 // Connect to Database
 $con = mysqli_connect($db_host, $db_user, $db_pass) or die(mysqli_error($con));
