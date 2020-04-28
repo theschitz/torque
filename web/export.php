@@ -6,10 +6,10 @@ $con = mysqli_connect($db_host, $db_user, $db_pass) or die(mysqli_error($con));
 mysqli_select_db($con, $db_name) or die(mysqli_error($con));
 
 if (isset($_GET["sid"])) {
-    $session_id = mysqli_real_escape_string($_GET['sid']);
+    $session_id = mysqli_real_escape_string($con, $_GET['sid']);
     // Get data for session
     $output = "";
-    $sql = mysqli_query($con, "SELECT * FROM $db_table WHERE session=$session_id ORDER BY time DESC;") or die(mysqli_error($con));
+    $sql = mysqli_query($con, "SELECT * FROM $db_table WHERE session=$session_id ORDER BY time DESC") or die(mysqli_error($con));
 
     if ($_GET["filetype"] == "csv") {
         $columns_total = mysqli_num_fields($sql);
