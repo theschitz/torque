@@ -1,5 +1,5 @@
 <?php
-require("./creds.php");
+require_once ("./creds.php");
 
 // Connect to Database
 $con = mysqli_connect($db_host, $db_user, $db_pass) or die(mysqli_error($con));
