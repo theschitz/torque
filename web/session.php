@@ -315,12 +315,12 @@ else {
                         <div class="btn-group btn-group-justified">
                           <table style="width:100%"><tr>
                             <td><form method="post" class="form-horizontal" role="form" action="session.php?mergesession=<?php echo $session_id; ?>&mergesessionwith=<?php echo $session_id_next; ?>" id="formmerge">
-                              <div align="center" style="padding-top:6px;"><input class="btn btn-info btn-sm" type="submit" id="formmerge" name="merge" value="Merge" title="Merge this session (<?php echo $seshdates[$session_id]; ?>) with the next session (<?php echo $seshdates[$session_id_next]; ?>)." <?php if(!$session_id_next){ echo 'disabled="disabled"';} ?> /></div>
+                              <div align="center" style="padding-top:6px;"><input class="btn btn-info btn-sm" type="submit" id="formmerge" name="merge" value="Merge" title="Merge this session (<?php if($session_id_next) { echo $seshdates[$session_id]; } ?>) with the next session (<?php echo $seshdates[$session_id_next]; ?>)." <?php if(!$session_id_next){ echo 'disabled="disabled"';} ?> /></div>
                             </form></td>
                             <script type="text/javascript">
                               //Adding a confirmation dialog to above forms
                               $('#formmerge').submit(function() {
-                                var c = confirm("Click OK to merge sessions (<?php echo $seshdates[$session_id]; ?>) and (<?php echo $seshdates[$session_id_next]; ?>).");
+                                var c = confirm("Click OK to merge sessions (<?php echo $seshdates[$session_id]; ?>) and (<?php if($session_id_next) { echo $seshdates[$session_id_next]; } ?>).");
                                 return c; //you can just return c because it will be true or false
                               });
                             </script>
