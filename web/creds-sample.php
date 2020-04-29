@@ -6,6 +6,7 @@ $db_user = '';     // Enter your MySQL username
 $db_pass = '';     // Enter your MySQL password
 $db_name = 'torque';
 $db_table = 'raw_logs';
+$db_port = '';
 
 // User credentials for Browser login
 $auth_user = '';    //Sample: 'torque'
