@@ -16,7 +16,7 @@ if (isset($_GET["sid"])) {
 
         // Get The Field Name
         for ($i = 0; $i < $columns_total; $i++) {
-            $heading = $sql->mysqli_fetch_field_direct($i)->name;
+            $heading = mysqli_fetch_field_direct($sql, $i)->name;
             $output .= '"'.$heading.'",';
         }
         $output .="\n";
