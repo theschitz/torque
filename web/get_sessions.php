@@ -31,7 +31,7 @@ while($row = mysqli_fetch_assoc($sessionqry)) {
     if ($session_size >= 60) {
         $sid = $row["session"];
         $sids[] = preg_replace('/\D/', '', $sid);
-        $seshdates[$sid] = date("F d, Y  h:ia", substr($sid, 0, -3));
+        $seshdates[$sid] = date($sesh_dates_format, substr($sid, 0, -3));
         $seshsizes[$sid] = " (Length $session_duration_str)";
     }
     else {}
