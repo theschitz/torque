@@ -15,13 +15,13 @@ if (isset($_GET["id"]) and in_array($_GET["id"], $sids)) {
     $jsarr = json_decode($js, TRUE);
 
     // The columns to plot -- if no PIDs are specified I default to intake temp and OBD speed
-    if (isset($_GET["s1"]) && !empty($_GET["s1"] || ($_GET["s1"] != "Plot!"))) {
+    if (isset($_GET["s1"]) && !empty($_GET["s1"] && ($_GET["s1"] != "Plot!"))) {
         $v1 = mysqli_real_escape_string($con, $_GET['s1']);
     }
     else {
         $v1 = "kd"; // OBD Speed
     }
-    if (isset($_GET["s2"]) && !empty($_GET["s2"])) {
+    if (isset($_GET["s2"]) && !empty($_GET["s2"]) && ($_GET["s2"] != "Plot!")) {
         $v2 = mysqli_real_escape_string($con, $_GET['s2']);
     }
     else {
