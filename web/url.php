@@ -16,8 +16,10 @@ if (isset($_GET["makechart"])) {
         $seshid = strval(mysqli_real_escape_string($con, $_GET["seshid"]));
         if (isset($_POST["plotdata"])) {
             $plotdataarray = $_POST["plotdata"];
-            $s1data = $plotdataarray[0];
-            $s2data = $plotdataarray[1];
+            if (array_key_exists(0, $plotdataarray))
+                $s1data = $plotdataarray[0];
+            if (array_key_exists(1, $plotdataarray))
+                $s2data = $plotdataarray[1];
             $outurl = $baselink."?id=".$seshid."&s1=".$s1data."&s2=".$s2data;
         }
         else {
